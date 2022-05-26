@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Verificador de dados do BI</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header_text">
+                <h2>Veja os dados seu bilhete de identidade online.</h2>
+                <p>Verifique e consulte os dados do seu bilhete rápido, fácil e a qualquer momento que desejar, apenas
+                    com o seu número do BI.</p>
+            </div>
+            <div class="header_input">
+                <form id="form">
+                    <input type="text" id="input" placeholder="Número do BI">
+                    <a href="#box_container"><button>buscar</button></a>
+                    <p>Mensagem de erro</p>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="box_container">
+            <h1>Dados Encontrados</h1>
+            <div class="box-container">
+                <!-- box -->
+                <div class="box">
+                    <!-- box header -->
+                    <div class="box_header">
+                        <img src="img/insignia-angola.png" alt="">
+
+                        <div class="texto_header">
+                            <h3>Republica de Angola</h3>
+                            <h3>Bilhete de identidade</h3>
+                            <h3>De cidadão nacional</h3>
+                        </div>
+                        <img src="img/mapa-angola-black.png" alt="">
+                    </div>
+                    <!-- end box header -->
+                    <!-- box content -->
+                    <div class="content_header">
+                        <div class="item">
+                            <span class="item_titulo">Nome Completo</span>
+                            <p id="nome"></p>
+                            <p id="sobrenome"></p>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">Filiação</span>
+                            <p id="nomeDoPai"></p>
+                            <p id="sobrenomeDoPai"></p>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">e</span>
+                            <p id="nomeDaMae"></p>
+                            <p id="sobrenomeDaMae"></p>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">Bilhete de Identidade Nº</span>
+                            <p id="NumeroBi"></p>
+                        </div>
+                    </div>
+                    <!-- end box content -->
+                </div>
+                <!-- end box -->
+                <!-- box 2 -->
+                <div class="box">
+                    <!-- box content -->
+                    <div class="content_header">
+                        <div class="item">
+                            <span class="item_titulo">Residência</span>
+                            <span id="enderecoResidencia"></span><br>
+                            <span id="bairroResidencia"></span> <br>
+                            <span id="municipioResidencia"></span>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">Natural de:</span>
+                            <span id="municipioNascimento"></span>
+                        </div>
+
+                        <div class="item">
+                            <span class="item_titulo">província de:</span>
+                            <span id="provinciaNascimento"></span>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">Data de Nascimento:</span>
+                            <span id="dataNascimento"></span>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">Sexo:</span>
+                            <span id="sexo"></span>
+                        </div>
+
+                        <div class="item">
+                            <span class="item_titulo">Estado Civil:</span>
+                            <span id="estadoCivil"></span>
+                        </div>
+
+                        <div class="item">
+                            <span class="item_titulo">Emitido em:</span>
+                            <span id="emitidoEm"></span>
+                        </div>
+
+                        <div class="item">
+                            <span class="item_titulo">Válido até:</span>
+                            <span id="validoAte"></span>
+                        </div>
+                        <div class="item">
+                            <span class="item_titulo">DIRECTOR NACIONAL DE IDENTIFICAÇÃO</span>
+                            <div class="b-code" style="width: 200px; height: 30px;margin-top: 10px;">
+                                <img src="img/codigo-barra.png" style="object-fit: cover;" width="100%" height="100%"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end box content -->
+                </div>
+                <!-- end box 2 -->
+            </div>
+    </main>
+    <footer>
+        <div class="title">
+            © 2022 Matheus
+        </div>
+        <div class="redes-socias">
+            <a href="https://www.facebook.com/matheus.hernandez.792/" target="_blank"> <i class="fa fa-facebook"></i></a>
+            <a href="https://www.instagram.com/matheus_manuel_/" target="_blank"> <i class="fa fa-instagram"></i></a>
+            <a href="https://github.com/matheusmanuel" target="_blank"><i class="fa fa-github"></i></a>
+        </div>
+    </footer>
+    <script src="teste.js"></script>
+</body>
+
+</html>
