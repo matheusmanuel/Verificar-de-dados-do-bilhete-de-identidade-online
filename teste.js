@@ -33,9 +33,14 @@ function VerificaCampos() {
             var url = `https://api.gov.ao/consultarBI/v2/?bi=${input.value}`;
             var d = busca(url);
             var data = JSON.parse(d);
-            prencheDados(data);
-            footer.style.position = 'relative';
-            mostrarBox();
+            if (data.length > 0) {
+                prencheDados(data);
+                footer.style.position = 'relative';
+                mostrarBox();
+            } else {
+                alert("Numero do Bi inválido/incorrecto! Tente novamente :(")
+            }
+
         } else {
             alert('Numero de Bi inválido!! Tente novamente');
         }
