@@ -10,9 +10,29 @@
 .container {
     max-width: 1500px;
     padding: 0 5%;
-    margin: 0 auto;
+    margin:0 auto;
 }
-
+/* preloader */
+.preloader_main{
+    position: fixed;
+    background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s;
+    transform: translateY(100%);
+}
+.preloader_main.activo{
+    transform: translateY(0%);
+}
+.preloader_main .preloader{
+    width: 140px;
+    height: 140px;
+}
+/* end preloader */
 header {
     background: rgb(238,14,14);
     background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
@@ -88,7 +108,6 @@ header .header_input p {
 }
 main{
     display: none;
-    /* position: fixed; */
     transform: translateX(100%);
     transition: all 0.5s;
 }
