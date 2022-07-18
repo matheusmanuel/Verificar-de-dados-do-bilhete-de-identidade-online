@@ -1,226 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+var form = document.getElementById("form");
+var footer = document.querySelector('footer');
+var preloader = document.querySelector('.preloader_main');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
+window.addEventListener('load', () => {
+    preloader.classList.remove('activo');
+});
 
-.container {
-    max-width: 1500px;
-    padding: 0 5%;
-    margin:0 auto;
-}
-/* preloader */
-.preloader_main{
-    position: fixed;
-    background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
-    height: 100%;
-    width: 100%;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.4s;
-    transform: translateY(100%);
-}
-.preloader_main.activo{
-    transform: translateY(0%);
-}
-.preloader_main .preloader{
-    width: 140px;
-    height: 140px;
-}
-/* end preloader */
-header {
-    background: rgb(238,14,14);
-    background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
-    padding: 100px 0;
-    text-align: center;
-    margin: 0 auto;
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    VerificaCampos();
+});
+
+function busca(url) {
+    preloader.classList.add('activo');
+    var request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send();
+
+    return request.responseText;
 }
 
-header .header_text {
-    width: 60%;
-    margin: 20px auto;
+function mostrarBox() {
+    var main = document.querySelector('main');
+    main.style.display = "block";
+    setTimeout(() => {
+        main.classList.add('active');
+    }, 300);
 }
 
-header .header_text h2 {
-    font-size: 3.8rem;
-    color: #F9F3EE;
-}
+function VerificaCampos() {
+    var input = document.getElementById('input');
 
-header .header_text p {
-    color: #F9F3EE;
-    font-weight: 400;
-    margin: 20px auto;
-    max-width: 70%;
-}
+    if (input.value == '') {
+        alert('Prencha esse campo');
+        input.focus()
+    } else {
+        if (validateBi(input.value)) {
+            var url = `https://api.gov.ao/consultarBI/v2/?bi=${input.value}`;
+            var d = busca(url);
+            var data = JSON.parse(d);
+            
+            if (data.length > 0) {
+                setTimeout(() => {
+                    preloader.classList.remove('activo');
+                }, 1000);
 
-header .header_input {
-    max-width: 500px;
-    margin: 0 auto;
-}
+                prencheDados(data);
+                footer.style.position = 'relative';
+                mostrarBox();
+            } else {
+                alert("Numero do Bi inválido/incorrecto! Tente novamente :(");
+                preloader.classList.remove('activo');
+            }
 
-header .header_input input {
-    width: 60%;
-    height: 40px;
-    border-radius: 7px;
-    outline: none;
-    border: none;
-    padding: 10px;
-    border: 2px solid transparent;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: rgb(83, 75, 75);
-}
-
-header .header_input input::placeholder {
-    color: #2e455d;
-}
-
-header .header_input button {
-    width: 30%;
-    background-color: #fac507;
-    border: none;
-    outline: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    font-weight: 500;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
-
-header .header_input button:hover {
-    background-color: #ebbd16;
-}
-
-header .header_input p {
-    text-align: left;
-    margin-left: 30px;
-    margin-top: 10px;
-    font-size: 17px;
-    display: none;
-}
-main{
-    display: none;
-    transform: translateX(100%);
-    transition: all 0.5s;
-}
-main.active{
-    transform: translateX(0);
-}
-main h1 {
-    text-align: center;
-    margin: 40px 0;
-    font-size: 40px;
-    font-weight: 700;
-    color: #2e455d;
-}
-
-main .box-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-main .box {
-    background: rgba(227, 197, 91, 0.616);
-    background: linear-gradient(293deg, rgba(227, 197, 91, 0.76) 24%, rgba(248, 204, 46, 0.589) 54%);
-    width: 500px;
-    padding: 10px 16px; 
-    height: 380px;
-    border-radius: 5px;
-}
-
-.box .box_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-}
-
-.box .box_header img {
-    width: 50px;
-}
-
-.box_header .texto_header h3 {
-    font-size: 20px;
-}
-
-.box .content_header {
-    margin-top: 15px;
-}
-
-.content_header .item {
-    font-size: 18px;
-    margin: 7px 0;
-}
-
-.content_header .item .item_titulo {
-    font-weight: bolder;
-}
-
-footer {
-    margin-top: 40px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #ebbd1638;
-    color: black;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-
-footer .title {
-    font-size: 21px;
-    font-weight: 400;
-    margin-bottom: 10px;
-}
-
-footer .redes-socias i {
-    font-size: 27px;
-    margin: 0 5px;
-    color: black;
-}
-/* Responsivo */
-@media (max-width:1100px) {
-    main .box-container{
-        flex-direction: column;
-    }
-    main .box-container .box:nth-of-type(1){
-        margin-bottom: 70px;
+        } else {
+            alert('Numero de Bi inválido!! Tente novamente');
+        }
     }
 }
-@media (max-width:520px) {
-    main .box-container{
-        padding: 20px;
-    }
-    main .box-container .box{
-        width: 100%;
-        height: 100%;
-    }
+
+function validateBi(input) {
+    const regex = /\d{9}[A-Za-z]{2}\d{3}$/;
+    return regex.test(input);
 }
-@media (max-width:430px) {
-    header .header_text h2{
-        font-size: 2rem;
-    }  
-}
-@media (max-width:500px) {
-    .box_header .texto_header h3{
-        font-size: 15px;
-    }
-}
-@media (max-width:400px) {
-    .box_header .texto_header h3{
-        font-size: 13px;
-    }
+
+function prencheDados(arrayD) {
+    const nome = document.getElementById('nome'),
+        sobrenome = document.getElementById('sobrenome'),
+        nomeDoPai = document.getElementById('nomeDoPai'),
+        sobrenomeDoPai = document.getElementById('sobrenomeDoPai'),
+        nomeDaMae = document.getElementById('nomeDaMae'),
+        sobrenomeDaMae = document.getElementById('sobrenomeDaMae'),
+        numeroBi = document.getElementById('NumeroBi'),
+        enderecoResidencia = document.getElementById('enderecoResidencia'),
+        bairroResidencia = document.getElementById('bairroResidencia'),
+        municipioResidencia = document.getElementById('municipioResidencia'),
+        municipioNascimento = document.getElementById('municipioNascimento'),
+        provinciaNascimento = document.getElementById('provinciaNascimento'),
+        dataNascimento = document.getElementById('dataNascimento'),
+        sexo = document.getElementById('sexo'),
+        estadoCivil = document.getElementById('estadoCivil'),
+        emitidoEm = document.getElementById('emitidoEm'),
+        validoAte = document.getElementById('validoAte');
+    nome.innerText = arrayD[0]["FIRST_NAME"];
+    sobrenome.innerText = arrayD[0]["LAST_NAME"];
+    nomeDoPai.innerText = arrayD[0]["FATHER_FIRST_NAME"];
+    sobrenomeDoPai.innerText = arrayD[0]["FATHER_LAST_NAME"];
+    nomeDaMae.innerText = arrayD[0]["MOTHER_FIRST_NAME"];
+    sobrenomeDaMae.innerText = arrayD[0]["MOTHER_LAST_NAME"];
+    numeroBi.innerText = arrayD[0]["ID_NUMBER"];
+    // parte traseira
+    enderecoResidencia.innerText = arrayD[0]["RESIDENCE_ADDRESS"];
+    bairroResidencia.innerText = arrayD[0]["RESIDENCE_NEIGHBOR"];
+    municipioResidencia.innerText = arrayD[0]["RESIDENCE_MUNICIPALITY_NAME"];
+    municipioNascimento.innerText = arrayD[0]["BIRTH_MUNICIPALITY_NAME"];
+    provinciaNascimento.innerText = arrayD[0]["BIRTH_PROVINCE_NAME"];
+    dataNascimento.innerText = arrayD[0]["BIRTH_DATE"];
+    sexo.innerText = arrayD[0]["GENDER_NAME"];
+    estadoCivil.innerText = arrayD[0]["MARITAL_STATUS_NAME"];
+    emitidoEm.innerText = arrayD[0]["ISSUE_DATE"];
+    validoAte.innerText = arrayD[0]["EXPIRY_DATE"];
 }
