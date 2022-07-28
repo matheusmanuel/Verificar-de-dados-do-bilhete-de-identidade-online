@@ -2,14 +2,15 @@ var form = document.getElementById("form");
 var footer = document.querySelector('footer');
 var preloader = document.querySelector('.preloader_main');
 
-window.addEventListener('load', () => {
-    preloader.classList.remove('activo');
-});
-
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     VerificaCampos();
 });
+
+window.addEventListener('load', () => {
+    preloader.classList.remove('activo');
+});
+
 
 function busca(url) {
     preloader.classList.add('activo');
@@ -30,7 +31,7 @@ function mostrarBox() {
 
 function VerificaCampos() {
     var input = document.getElementById('input');
-
+    input.value = input.value.toUpperCase();
     if (input.value == '') {
         alert('Prencha esse campo');
         input.focus()
@@ -39,14 +40,14 @@ function VerificaCampos() {
             var url = `https://api.gov.ao/consultarBI/v2/?bi=${input.value}`;
             var d = busca(url);
             var data = JSON.parse(d);
-            
+
             if (data.length > 0) {
                 setTimeout(() => {
                     preloader.classList.remove('activo');
                 }, 1000);
 
                 prencheDados(data);
-                footer.style.position = 'relative';
+                footer.style.position = 'static';
                 mostrarBox();
             } else {
                 alert("Numero do Bi inválido/incorrecto! Tente novamente :(");
@@ -100,4 +101,40 @@ function prencheDados(arrayD) {
     estadoCivil.innerText = arrayD[0]["MARITAL_STATUS_NAME"];
     emitidoEm.innerText = arrayD[0]["ISSUE_DATE"];
     validoAte.innerText = arrayD[0]["EXPIRY_DATE"];
+}
+
+// Selecting all required elements
+const wrapper = document.querySelector(".semInternet");
+
+window.onload = ()=>{
+    function ajax(){
+        let xhr = new XMLHttpRequest(); //criando novo objeto XML
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true); //sending get request on this URL
+        xhr.onload = ()=>{ //uma vez ajax carregado
+            //se o status do ajax for igual a 200 ou menor que 300, isso significa que o usuário está obtendo dados desse URL fornecido
+            //ou seu status de resposta é 200, o que significa que ele está online
+            if(xhr.status == 200 && xhr.status < 300){
+               //o usuário está com internet
+                setTimeout(()=>{ //ocultar a notificação do brinde automaticamente após 5 segundos
+                    //remover o prenchimento branco
+                    wrapper.classList.remove('mostrarBoxSemInternet');
+                }, 200);
+            }else{
+                //o usuário está sem internet
+                offline(); //chamando a função offline se o status do ajax não for igual a 200 ou não inferior a 300
+            }
+        }
+        xhr.onerror = ()=>{
+            offline(); //chamando a função offline se o URL passado não estiver correto ou retornando 404 ou outro erro
+        }
+        xhr.send(); //enviando solicitação get para o URL passado
+    }
+
+    function offline(){ //função para quando o usúario estiver sem internet 
+        wrapper.classList.add('mostrarBoxSemInternet');
+    }
+
+    setInterval(()=>{ //esta função setInterval chama ajax frequentemente após 100ms
+        ajax();
+    }, 100);
 }
