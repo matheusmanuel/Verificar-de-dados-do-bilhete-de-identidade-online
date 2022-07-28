@@ -10,12 +10,13 @@
 .container {
     max-width: 1500px;
     padding: 0 5%;
-    margin:0 auto;
+    margin: 0 auto;
 }
+
 /* preloader */
-.preloader_main{
+.preloader_main {
     position: fixed;
-    background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
+    background: radial-gradient(circle, rgba(238, 14, 14, 1) 0%, rgb(202, 40, 32) 35%);
     height: 100%;
     width: 100%;
     z-index: 999;
@@ -25,17 +26,20 @@
     transition: 0.4s;
     transform: translateY(100%);
 }
-.preloader_main.activo{
+
+.preloader_main.activo {
     transform: translateY(0%);
 }
-.preloader_main .preloader{
+
+.preloader_main .preloader {
     width: 140px;
     height: 140px;
 }
+
 /* end preloader */
 header {
-    background: rgb(238,14,14);
-    background: radial-gradient(circle, rgba(238,14,14,1) 0%, rgba(185,52,45,1) 35%);
+    /* background: rgb(238, 14, 14); */
+    background: radial-gradient(circle, rgba(238, 14, 14, 1) 0%, rgb(202, 40, 32) 35%);
     padding: 100px 0;
     text-align: center;
     margin: 0 auto;
@@ -106,14 +110,18 @@ header .header_input p {
     font-size: 17px;
     display: none;
 }
-main{
+
+main {
     display: none;
     transform: translateX(100%);
     transition: all 0.5s;
+    padding-bottom: 40px;
 }
-main.active{
+
+main.active {
     transform: translateX(0);
 }
+
 main h1 {
     text-align: center;
     margin: 40px 0;
@@ -132,7 +140,7 @@ main .box {
     background: rgba(227, 197, 91, 0.616);
     background: linear-gradient(293deg, rgba(227, 197, 91, 0.76) 24%, rgba(248, 204, 46, 0.589) 54%);
     width: 500px;
-    padding: 10px 16px; 
+    padding: 10px 16px;
     height: 380px;
     border-radius: 5px;
 }
@@ -166,7 +174,6 @@ main .box {
 }
 
 footer {
-    margin-top: 40px;
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -174,10 +181,9 @@ footer {
     justify-content: center;
     background-color: #ebbd1638;
     color: black;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: absolute;
     width: 100%;
+    bottom: 0;
 }
 
 footer .title {
@@ -191,36 +197,88 @@ footer .redes-socias i {
     margin: 0 5px;
     color: black;
 }
+
+/* Sem internet */
+div.semInternet {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+    transform: translateY(100%);
+    transition: 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+div.semInternet div .img {
+    max-width: 450px;
+    width: 100%;
+}
+
+div.semInternet div h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+div.semInternet.mostrarBoxSemInternet {
+    transform: translateY(0);
+}
+
 /* Responsivo */
 @media (max-width:1100px) {
-    main .box-container{
+    main .box-container {
         flex-direction: column;
     }
-    main .box-container .box:nth-of-type(1){
+
+    main .box-container .box:nth-of-type(1) {
         margin-bottom: 70px;
     }
 }
+@media (max-width:750px) {
+    footer{
+        position: static;
+    }
+}
 @media (max-width:520px) {
-    main .box-container{
+    main .box-container {
         padding: 20px;
     }
-    main .box-container .box{
+
+    main .box-container .box {
         width: 100%;
         height: 100%;
     }
 }
+
 @media (max-width:430px) {
-    header .header_text h2{
+    header .header_text h2 {
         font-size: 2rem;
-    }  
+    }
 }
+
 @media (max-width:500px) {
-    .box_header .texto_header h3{
+    .box_header .texto_header h3 {
         font-size: 15px;
     }
 }
+
 @media (max-width:400px) {
-    .box_header .texto_header h3{
+    .box_header .texto_header h3 {
+        font-size: 13px;
+    }
+
+    div.semInternet div h1 {
+        font-size: 30px;
+    }
+
+    div.semInternet div p {
         font-size: 13px;
     }
 }
